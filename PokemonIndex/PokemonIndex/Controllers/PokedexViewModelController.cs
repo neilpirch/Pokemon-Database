@@ -14,11 +14,13 @@ namespace PokemonIndex.Controllers
         //Create DB Instance
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: PokedexViewModel
+
         public ActionResult Index()
         {
             return View();
         }
+
+        
         public async Task<ActionResult> _PokedexEntry(int id)
         {
 
