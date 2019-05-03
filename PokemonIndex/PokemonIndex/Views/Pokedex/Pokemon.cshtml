@@ -1,0 +1,33 @@
+﻿@model IEnumerable<PokemonIndex.Models.Pokedex>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Pokemon.PokemonId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Pokemon.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Pokemon.PokedexEntry)
+        </th>
+        
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Pokemon.PokemonId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Pokemon.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Pokemon.PokedexEntry)
+            </td>
+            
+
+        </tr>
+
+    }
+</table>

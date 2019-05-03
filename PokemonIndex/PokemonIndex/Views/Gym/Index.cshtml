@@ -1,0 +1,16 @@
+﻿@model PokemonIndex.Models.Gymformation
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Gym Lookup</h2>
+<p>Use this search tool to find gyms you want to know more about.</p>
+
+<form asp-controller="Gym" asp-action="Index">
+    <p>
+        Pokemon Name: <input type="text" name="id">
+        <input type="submit" value="Filter" />
+    </p>
+</form>
+
+
