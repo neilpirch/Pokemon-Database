@@ -1,0 +1,18 @@
+﻿@model IEnumerable<PokemonIndex.Models.Pokedex>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Evolution.EvolveToId)
+        </th>
+    </tr>
+    @foreach(var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Evolution.EvolveToId)
+            </td>
+        </tr>
+    }
+</table>
+

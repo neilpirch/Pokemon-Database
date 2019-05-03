@@ -17,4 +17,14 @@ namespace PokemonIndex.Models
 
 
     }
+
+    public class Gymformation
+    {
+        public List<TrainerPokemon> TrainerPokemons { get; set; }
+        public List<Pokemon> Pokemons { get; set; }
+        public List<Trainer> Trainers { get; set; }
+        public List<PokemonType> PokemonTypes { get; set; }
+        public Gym Gym { get; set; }
+    }
+
 }

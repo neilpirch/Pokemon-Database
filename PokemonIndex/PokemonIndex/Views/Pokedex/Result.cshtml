@@ -1,4 +1,4 @@
-﻿@model IEnumerable<PokemonIndex.Models.Pokemon>
+﻿@model PokemonIndex.Models.Pokedex
 @{
     ViewBag.Title = "Result";
 }
@@ -13,27 +13,40 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.PokemonId)
+            Pokemon Id
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Name)
+            Name
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.PokedexEntry)
+            Pokedex Entry
+        </th>
+        <th>
+            Evolution
         </th>
     </tr>
 
-    @foreach (var item in Model)
+    @foreach (var item in Model.Pokemon1)
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.PokemonId)
+                @item.PokemonId
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Name)
+                @item.Name
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PokedexEntry)
+                @item.PokedexEntry
+            </td>
+            <td>
+                @foreach(var p2 in Model.Pokemon2)
+                {
+                    var evolvefrom = Model.Evolutions.Where(c => c.EvolveFromId.Equals(item.PokemonId)).FirstOrDefault();
+                    if (p2.PokemonId.Equals(evolvefrom.EvolveToId))
+                    {
+                        @p2.Name
+                    }
+                }
             </td>
 
         </tr>

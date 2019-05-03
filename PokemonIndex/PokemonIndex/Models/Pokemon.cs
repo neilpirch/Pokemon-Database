@@ -14,4 +14,11 @@ namespace PokemonIndex.Models
         [StringLength(150)]
         public String PokedexEntry { get; set; }
     }
+
+    public class Pokedex
+    {
+        public List<Pokemon> Pokemon1 { get; set; }
+        public List<Pokemon> Pokemon2 { get; set; }
+        public List<Evolution> Evolutions { get; set; }
+    }
 }
