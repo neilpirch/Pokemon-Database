@@ -1,42 +1,78 @@
-﻿@model IEnumerable<PokemonIndex.Models.Pokemon>
+﻿@model IEnumerable<PokemonIndex.Models.PokedexViewModel>
+
 @{
     ViewBag.Title = "Result";
 }
 
 <h2>Result</h2>
-<form asp-controller="Pokedex" asp-action="Index">
+<form asp-controller="Pokedex" asp-action="IndexResult">
     <p>
         Pokemon Name: <input type="text" name="id">
         <input type="submit" value="Filter" />
     </p>
 </form>
+
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.PokemonId)
+            Pokemon Id
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Name)
+            Pokemon Name
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.PokedexEntry)
+            Type
+        </th>
+        <th>
+            Evolves From
+        </th>
+        <th>
+            Evolves To
+        </th>
+        <th>
+            Pokedex Entry
+        </th>
+        <th>
+            Owned By
         </th>
     </tr>
 
     @foreach (var item in Model)
     {
+
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.PokemonId)
+                @Html.DisplayFor(model => item.Pokemon.PokemonId)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Name)
+                @Html.DisplayFor(model => item.Pokemon.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PokedexEntry)
+                @foreach (var typeItem in item.PokemonTypes)
+                {
+                    @Html.DisplayFor(modelItem => typeItem.Type)
+                    <br />
+                }
             </td>
-
+            <td>
+                @if (!String.IsNullOrEmpty(Html.DisplayFor(model => item.EvolvesFrom).ToString()))
+                {
+                    @Html.ActionLink(@Html.DisplayFor(model => item.EvolvesFrom.Name).ToString(), "IndexResult", new { id = item.EvolvesFrom.Name })
+                }
+            </td>
+            <td>
+                @foreach (var evoItem in item.EvolvesTo)
+                {
+                    @Html.ActionLink(@Html.DisplayFor(modelItem => evoItem.Name).ToString(), "IndexResult", new { id = evoItem.Name })
+                    <br />
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Pokemon.PokedexEntry)
+            </td>
+            <td>
+                @*@Html.DisplayFor(model => item.Pokemon.PokedexEntry)*@
+            </td>
         </tr>
-
     }
 </table>
