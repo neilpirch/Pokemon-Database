@@ -1,4 +1,4 @@
-﻿@model IEnumerable<PokemonIndex.Models.PokedexViewModel>
+﻿@using PokemonIndex.Models
 
 @{
     ViewBag.Title = "Result";
@@ -10,6 +10,14 @@
         Pokemon Name: <input type="text" name="id">
         <input type="submit" value="Filter" />
     </p>
+</form>
+
+<form asp-controller="Pokedex" asp-action="ResultByType">
+    @Html.DropDownList("id",
+                    new SelectList(Enum.GetValues(typeof(TypeEnum))),
+                    "Select Type",
+                    new { @class = "form-control" })
+    <input type="submit" value="Filter by Type" />
 </form>
 
 <table class="table">
@@ -36,6 +44,7 @@
             Owned By
         </th>
     </tr>
+    @model IEnumerable<PokemonIndex.Models.PokedexViewModel>
 
     @foreach (var item in Model)
     {
