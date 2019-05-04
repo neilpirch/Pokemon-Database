@@ -69,5 +69,10 @@ namespace PokemonIndex.Controllers
             };
             return View(viewModel);
         }
+
+        public ActionResult IndexResult(int id)
+        {
+            return RedirectToAction("Index", id);
+        }
     }
 }
