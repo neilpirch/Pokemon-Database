@@ -13,20 +13,8 @@ namespace PokemonIndex.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
         // GET: PokedexViewModel
-
-        public ActionResult Index(string id)
-        {
-            var pokemon = from p in db.Pokemons
-                          select p;
-
-            if (!String.IsNullOrEmpty(id))
-            {
-                return RedirectToAction("IndexResult", new { id = id });
-            }
-            return View();
-        }
-
-        public async Task<ActionResult> IndexResult(string id)
+        
+        public async Task<ActionResult> Index(string id)
         {
             var searchResults = from p in db.Pokemons
                           select p;
@@ -80,8 +68,16 @@ namespace PokemonIndex.Controllers
                     };
                     indexList.Add(viewModel);
                 }
+                return View("Result", indexList);
             }
-            return View("Result", indexList);
+
+            return View();
+           
+        }
+
+        public ActionResult Result(string id)
+        {
+            return RedirectToAction("Index", id);
         }
     }
 }
