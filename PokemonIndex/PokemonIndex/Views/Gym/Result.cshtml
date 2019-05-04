@@ -1,0 +1,76 @@
+﻿@model PokemonIndex.Models.Gymformation
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Gym Lookup</h2>
+<p>Use this search tool to find gyms you want to know more about.</p>
+
+<form asp-controller="Gym" asp-action="Index">
+    <p>
+        Pokemon Name: <input type="text" name="id">
+        <input type="submit" value="Filter" />
+    </p>
+</form>
+
+<h1>@Model.Gym.GymLocation</h1>
+@foreach (var trainer in Model.Trainers)
+{
+    <h3>@trainer.TrainerName</h3>
+
+
+
+    foreach (var tp in Model.TrainerPokemons)
+    {
+    if (tp.TrainerId.Equals(trainer.TrainerID)) {
+    <table class="table">
+        <tr>
+            <th>
+                Pokedex Number
+            </th>
+            <th>
+                Name
+            </th>
+            <th>
+                Types
+            </th>
+            <th>
+                Level
+            </th>
+        </tr>
+
+        @foreach (var pokemon in Model.Pokemons)
+        {
+            if (pokemon.PokemonId.Equals(tp.PokemonId))
+            {
+                <tr>
+                    <td>
+                        @pokemon.PokemonId
+                    </td>
+                    <td>
+                        @pokemon.Name
+                    </td>
+                    <td>
+                        @foreach (var typeItem in Model.PokemonTypes)
+                        {
+                            if (pokemon.PokemonId.Equals(typeItem.PokemonId))
+                            {
+                                @typeItem.Type
+                                <br />
+                            }
+
+                        }
+                    </td>
+                    <td>
+                        @tp.Level
+                    </td>
+                </tr>
+            }
+        }
+      </table>
+     }
+
+           
+     }
+}
+

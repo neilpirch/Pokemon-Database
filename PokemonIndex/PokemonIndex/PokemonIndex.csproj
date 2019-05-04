@@ -291,6 +291,7 @@
     <Content Include="Views\Pokedex\Evolution.cshtml" />
     <Content Include="Views\Pokedex\Pokemon.cshtml" />
     <Content Include="Views\Gym\Index.cshtml" />
+    <Content Include="Views\Gym\Result.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -14,8 +14,8 @@ namespace PokemonIndex.Controllers
         public ActionResult Index(string id)
         {
             if (!String.IsNullOrEmpty(id))
-            {
-                List<Trainer> trainers = db.Trainers.Where(c => c.GymLocation.Equals(id)).ToList();
+            {   Gym gym = db.Gyms.Where(c => c.GymLocation.Contains(id)).First();
+                List<Trainer> trainers = db.Trainers.Where(c => c.GymLocation.Equals(gym.GymLocation)).ToList();
                 List<TrainerPokemon> tp = new List<TrainerPokemon>();
                 List<Pokemon> pokemon = new List<Pokemon>();
                 foreach (var t in trainers)
@@ -26,7 +26,7 @@ namespace PokemonIndex.Controllers
                 {
                     pokemon.Add(db.Pokemons.Where(c => c.PokemonId.Equals(t.PokemonId)).FirstOrDefault());
                 }
-                Gym gym = db.Gyms.Where(c => c.GymLocation.Equals(id)).First();
+                
                 List<PokemonType> pokemontype = new List<PokemonType>();
                 foreach (var p in pokemon)
                 {
@@ -43,11 +43,16 @@ namespace PokemonIndex.Controllers
 
 
                 };
-                return View(result);
+                return View("Result",result);
             }
 
             return View();
            
+        }
+
+        public ActionResult Result(string id)
+        {
+            return RedirectToAction("Index", id);
         }
     }
 }
