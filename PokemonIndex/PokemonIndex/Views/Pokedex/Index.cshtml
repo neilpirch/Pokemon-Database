@@ -1,4 +1,5 @@
-﻿@{
+﻿@using PokemonIndex.Models
+@{
     ViewBag.Title = "Index";
 }
 
@@ -10,4 +11,15 @@
         Pokemon Name: <input type="text" name="id">
         <input type="submit" value="Filter" />
     </p>
+</form>
+<form asp-controller="Pokedex" asp-action="ResultByType">
+    @Html.DropDownList("id",
+                    new SelectList(Enum.GetValues(typeof(TypeEnum))),
+                    "Select Type",
+                    new { @class = "form-control" })
+    <input type="submit" value="Filter by Type" />
+    @Html.ActionLink("Search By Type", 
+    "ResultByType", 
+    "Pokedex", new { pokemonType = (int)TypeEnum.Grass }, new { @class = "btn" })
+
 </form>
