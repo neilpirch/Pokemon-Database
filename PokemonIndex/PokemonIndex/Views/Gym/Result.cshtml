@@ -22,55 +22,56 @@
 
     foreach (var tp in Model.TrainerPokemons)
     {
-    if (tp.TrainerId.Equals(trainer.TrainerID)) {
-    <table class="table">
-        <tr>
-            <th>
-                Pokedex Number
-            </th>
-            <th>
-                Name
-            </th>
-            <th>
-                Types
-            </th>
-            <th>
-                Level
-            </th>
-        </tr>
-
-        @foreach (var pokemon in Model.Pokemons)
+        if (tp.TrainerId.Equals(trainer.TrainerID))
         {
-            if (pokemon.PokemonId.Equals(tp.PokemonId))
-            {
+            <table class="table">
                 <tr>
-                    <td>
-                        @pokemon.PokemonId
-                    </td>
-                    <td>
-                        @pokemon.Name
-                    </td>
-                    <td>
-                        @foreach (var typeItem in Model.PokemonTypes)
-                        {
-                            if (pokemon.PokemonId.Equals(typeItem.PokemonId))
-                            {
-                                @typeItem.Type
-                                <br />
-                            }
-
-                        }
-                    </td>
-                    <td>
-                        @tp.Level
-                    </td>
+                    <th>
+                        Pokedex Number
+                    </th>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Types
+                    </th>
+                    <th>
+                        Level
+                    </th>
                 </tr>
-            }
-        }
-      </table>
-     }
 
-           
-     }
+                @foreach (var pokemon in Model.Pokemons)
+                {
+                    if (pokemon.PokemonId.Equals(tp.PokemonId))
+                    {
+                        <tr>
+                            <td>
+                                @pokemon.PokemonId
+                            </td>
+                            <td>
+                                @pokemon.Name
+                            </td>
+                            <td>
+                                @foreach (var typeItem in Model.PokemonTypes)
+                                {
+                                    if (pokemon.PokemonId.Equals(typeItem.PokemonId))
+                                    {
+                                        @typeItem.Type
+                                        <br />
+                                    }
+
+                                }
+                            </td>
+                            <td>
+                                @tp.Level
+                            </td>
+                        </tr>
+                    }
+                }
+            </table>
+        }
+
+
+    }
 }
 

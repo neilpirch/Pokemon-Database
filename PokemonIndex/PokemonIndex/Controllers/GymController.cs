@@ -14,7 +14,7 @@ namespace PokemonIndex.Controllers
         public ActionResult Index(string id)
         {
             if (!String.IsNullOrEmpty(id))
-            {   Gym gym = db.Gyms.Where(c => c.GymLocation.Contains(id)).First();
+            {   Gym gym = db.Gyms.Where(c => c.GymLocation.ToLower().Contains(id.ToLower())).First();
                 List<Trainer> trainers = db.Trainers.Where(c => c.GymLocation.Equals(gym.GymLocation)).ToList();
                 List<TrainerPokemon> tp = new List<TrainerPokemon>();
                 List<Pokemon> pokemon = new List<Pokemon>();
