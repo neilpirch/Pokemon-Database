@@ -66,13 +66,14 @@
             <td>
                 @if (!String.IsNullOrEmpty(Html.DisplayFor(model => item.EvolvesFrom).ToString()))
                 {
-                    @Html.ActionLink(@Html.DisplayFor(model => item.EvolvesFrom.Name).ToString(), "Index", new { id = item.EvolvesFrom.Name })
+                <a href="/Pokedex?id=@item.EvolvesFrom.Name">@Html.DisplayFor(model => item.EvolvesFrom.Name).ToString()</a>
+                    
                 }
             </td>
             <td>
                 @foreach (var evoItem in item.EvolvesTo)
                 {
-                    @Html.ActionLink(@Html.DisplayFor(modelItem => evoItem.Name).ToString(), "Index", new { id = evoItem.Name })
+                <a href="/Pokedex?id=@evoItem.Name">@Html.DisplayFor(modelItem => evoItem.Name).ToString()</a>
                     <br />
                 }
             </td>
