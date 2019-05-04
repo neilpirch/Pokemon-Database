@@ -66,13 +66,13 @@
             <td>
                 @if (!String.IsNullOrEmpty(Html.DisplayFor(model => item.EvolvesFrom).ToString()))
                 {
-                    @Html.ActionLink(@Html.DisplayFor(model => item.EvolvesFrom.Name).ToString(), "IndexResult", new { id = item.EvolvesFrom.Name })
+                    @Html.ActionLink(@Html.DisplayFor(model => item.EvolvesFrom.Name).ToString(), "Index", new { id = item.EvolvesFrom.Name })
                 }
             </td>
             <td>
                 @foreach (var evoItem in item.EvolvesTo)
                 {
-                    @Html.ActionLink(@Html.DisplayFor(modelItem => evoItem.Name).ToString(), "IndexResult", new { id = evoItem.Name })
+                    @Html.ActionLink(@Html.DisplayFor(modelItem => evoItem.Name).ToString(), "Index", new { id = evoItem.Name })
                     <br />
                 }
             </td>
