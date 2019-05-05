@@ -214,6 +214,7 @@
     <Compile Include="Models\Pokemon.cs" />
     <Compile Include="Models\PokemonType.cs" />
     <Compile Include="Models\Trainer.cs" />
+    <Compile Include="Models\TrainerEntryViewModel.cs" />
     <Compile Include="Models\TrainerPokemon.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
