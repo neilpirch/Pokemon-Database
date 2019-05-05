@@ -8,80 +8,67 @@
 
 <form asp-controller="Gym" asp-action="Index">
     <p>
-        Gym Name: <input type="text" name="id">
+        Pokemon Name: <input type="text" name="id">
         <input type="submit" value="Filter" />
     </p>
 </form>
 
 <h1>@Model.Gym.GymLocation</h1>
-@foreach (var trainerEntry in Model.TrainerEntries)
+@foreach (var trainer in Model.Trainers)
 {
-    <h3>@trainerEntry.Trainer.TrainerName</h3>
+    <h3>@trainer.TrainerName</h3>
+
     <table class="table">
         <tr>
             <th>
-                Pokemon Id
+                Id
             </th>
             <th>
-                Pokemon Name
+                Name
             </th>
             <th>
-                Type
+                Description
             </th>
             <th>
-                Evolves From
+                Level
             </th>
             <th>
-                Evolves To
+                Types
             </th>
             <th>
-                Pokedex Entry
-            </th>
-            <th>
-                Owned By
+                Evolution
             </th>
         </tr>
-        @*@model IEnumerable<PokemonIndex.Models.PokedexViewModel>*@
 
-        @foreach (var item in trainerEntry.PokedexEntries)
+        @foreach (var pokemon in trainer.Pokemon)
         {
-
             <tr>
                 <td>
-                    @Html.DisplayFor(model => item.Pokemon.PokemonId)
+                    @pokemon.Id
                 </td>
                 <td>
-                    @Html.DisplayFor(model => item.Pokemon.Name)
+                    @pokemon.Name
                 </td>
                 <td>
-                    @foreach (var typeItem in item.PokemonTypes)
+                    @pokemon.Description
+                </td>
+                <td>
+                    @pokemon.Level
+                </td>
+                <td>
+                    |
+                    @foreach (var type in pokemon.Types)
                     {
-                        @Html.DisplayFor(modelItem => typeItem.Type)
-                        <br />
-                    }
-                </td>
-                <td>
-                    @if (!String.IsNullOrEmpty(Html.DisplayFor(model => item.EvolvesFrom).ToString()))
-                    {
-                        <a href="/Pokedex?id=@item.EvolvesFrom.Name">@Html.DisplayFor(model => item.EvolvesFrom.Name).ToString()</a>
+                        @(type + " | ")
 
                     }
                 </td>
                 <td>
-                    @foreach (var evoItem in item.EvolvesTo)
-                    {
-                        <a href="/Pokedex?id=@evoItem.Name">@Html.DisplayFor(modelItem => evoItem.Name).ToString()</a>
-                        <br />
-                    }
-                </td>
-                <td>
-                    @Html.DisplayFor(model => item.Pokemon.PokedexEntry)
-                </td>
-                <td>
-                    @*@Html.DisplayFor(model => item.Pokemon.PokedexEntry)*@
+                    @pokemon.Evolution
                 </td>
             </tr>
         }
+
     </table>
 }
 

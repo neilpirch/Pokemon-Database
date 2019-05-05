@@ -18,4 +18,21 @@ namespace PokemonIndex.Models
 
         //public virtual Gym Gym { get; set; }
     }
+
+    public class TrainerView
+    {
+        public string TrainerName { get; set; }
+        public List<PokeInfo> Pokemon { get; set; }
+
+    }
+    public class PokeInfo
+    {
+        public string Name { get; set; }
+        public int Id { get; set; }
+        public string Description { get; set; }
+        public int Level { get; set; }
+        public List<string> Types { get; set; }
+        public string Evolution { get; set; }
+    }
+
 }
