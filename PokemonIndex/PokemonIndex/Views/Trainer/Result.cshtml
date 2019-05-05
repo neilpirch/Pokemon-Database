@@ -1,11 +1,11 @@
-﻿@model PokemonIndex.Controllers.TrainerView
+﻿@model PokemonIndex.Models.TrainerView
 @{
     ViewBag.Title = "Result";
 }
 
 <h2>Result</h2>
 
-<table class="table-bordered">
+<table class="table">
     <tr>
         <th>
             Id
@@ -26,6 +26,7 @@
             Evolution
         </th>
     </tr>
+
     @foreach(var pokemon in Model.Pokemon)
     {
         <tr>
@@ -42,10 +43,11 @@
                 @pokemon.Level
             </td>
             <td>
+                | 
                 @foreach(var type in pokemon.Types)
                 {
-                    @type
-                    <br>
+                    @(type + " | ")
+                    
                 }
             </td>
             <td>
@@ -53,4 +55,5 @@
             </td>
         </tr>
     }
+
 </table>

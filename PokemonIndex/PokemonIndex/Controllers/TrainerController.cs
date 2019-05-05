@@ -11,7 +11,7 @@ namespace PokemonIndex.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
         // GET: Trainer
-        public ActionResult Index(string id)
+        public  ActionResult Index(string id)
         {
             if (!String.IsNullOrEmpty(id))
             {
@@ -21,7 +21,7 @@ namespace PokemonIndex.Controllers
                 List<TrainerPokemon> tp = db.TrainerPokemons.Where(c => c.TrainerId.Equals(trainer.TrainerID)).ToList();
 
 
-
+                trainerView.Pokemon = new List<PokeInfo>();
                 foreach (var p in tp)
                 {
                     var pokemon = db.Pokemons.Where(c => c.PokemonId.Equals(p.PokemonId)).FirstOrDefault();
@@ -33,15 +33,15 @@ namespace PokemonIndex.Controllers
                         typeString.Add(t.Type.ToString());
                     }
                     String evol;
-                    if (!(evolution == null))
+                    if(evolution != null)
                     {
-                        evol = "";
+                        evol = db.Pokemons.Where(c => c.PokemonId.Equals(evolution.EvolveFromId)).FirstOrDefault().Name;
                     }
                     else
                     {
-                        evol = db.Pokemons.Where(c => c.PokemonId.Equals(evolution.EvolveToId)).FirstOrDefault().Name;
+                        evol = "none";
                     }
-                    trainerView.Pokemon = new List<PokeInfo>();
+                    
                     trainerView.Pokemon.Add(new PokeInfo { Name = pokemon.Name, Id = pokemon.PokemonId, Level = p.Level, Description = pokemon.PokedexEntry, Types = typeString, Evolution = evol});
                 }
                 return View("Result", trainerView);
@@ -60,19 +60,5 @@ namespace PokemonIndex.Controllers
     }
 
 
-    public class TrainerView
-    {
-        public string TrainerName { get; set; }
-        public List<PokeInfo> Pokemon { get; set; }
-
-    }
-    public class PokeInfo
-    {
-        public string Name { get; set; }
-        public int Id { get; set; }
-        public string Description { get; set; }
-        public int Level { get; set; }
-        public List<string> Types { get; set; }
-        public string Evolution { get; set; }
-    }
+    
 }

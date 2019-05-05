@@ -14,34 +14,50 @@ namespace PokemonIndex.Controllers
         public ActionResult Index(string id)
         {
             if (!String.IsNullOrEmpty(id))
-            {   Gym gym = db.Gyms.Where(c => c.GymLocation.ToLower().Contains(id.ToLower())).First();
-                List<Trainer> trainers = db.Trainers.Where(c => c.GymLocation.Equals(gym.GymLocation)).ToList();
-                List<TrainerPokemon> tp = new List<TrainerPokemon>();
-                List<Pokemon> pokemon = new List<Pokemon>();
-                foreach (var t in trainers)
+            {
+                Gym gym = db.Gyms.Where(c => c.GymLocation.ToLower().Contains(id.ToLower())).FirstOrDefault();
+                if(gym == null)
                 {
-                    tp.Add(db.TrainerPokemons.Where(c => c.TrainerId.Equals(t.TrainerID)).FirstOrDefault());
+                    return (View());
                 }
-                foreach (var t in tp)
-                {
-                    pokemon.Add(db.Pokemons.Where(c => c.PokemonId.Equals(t.PokemonId)).FirstOrDefault());
-                }
+                var trainerList = new List<TrainerView>();
+                var trainers = db.Trainers.Where(c => c.GymLocation.Equals(gym.GymLocation)).ToList();
                 
-                List<PokemonType> pokemontype = new List<PokemonType>();
-                foreach (var p in pokemon)
+                foreach(var trainee in trainers)
                 {
-                    pokemontype.Add(db.PokemonTypes.Where(c => c.PokemonId.Equals(p.PokemonId)).FirstOrDefault());
-                }
+                    TrainerView trainerView = new TrainerView();
+                    Trainer trainer = db.Trainers.Where(c => c.TrainerID.Equals(trainee.TrainerID)).FirstOrDefault();
+                    trainerView.TrainerName = trainer.TrainerName;
+                    List<TrainerPokemon> tp = db.TrainerPokemons.Where(c => c.TrainerId.Equals(trainer.TrainerID)).ToList();
 
+                    trainerView.Pokemon = new List<PokeInfo>();
+                    foreach (var p in tp)
+                    {
+                    var pokemon = db.Pokemons.Where(c => c.PokemonId.Equals(p.PokemonId)).FirstOrDefault();
+                    var poketypes = db.PokemonTypes.Where(c => c.PokemonId.Equals(pokemon.PokemonId)).ToList();
+                    var evolution = db.Evolutions.Where(c => c.EvolveFromId.Equals(pokemon.PokemonId)).FirstOrDefault();
+                    List<string> typeString = new List<string>();
+                    foreach (var t in poketypes)
+                    {
+                         typeString.Add(t.Type.ToString());
+                    }
+                    String evol;
+                    if (evolution != null)
+                    {
+                           evol = db.Pokemons.Where(c => c.PokemonId.Equals(evolution.EvolveFromId)).FirstOrDefault().Name;
+                    }
+                    else
+                    {
+                           evol = "none";
+                    }
+                                                trainerView.Pokemon.Add(new PokeInfo { Name = pokemon.Name, Id = pokemon.PokemonId, Level = p.Level, Description = pokemon.PokedexEntry, Types = typeString, Evolution = evol });
+                    }
+                    trainerList.Add(trainerView);
+                }                
                 Gymformation result = new Gymformation
                 {
-                    Pokemons = pokemon,
-                    Trainers = trainers,
-                    PokemonTypes = pokemontype,
+                    Trainers = trainerList,
                     Gym = gym,
-                    TrainerPokemons = tp
-
-
                 };
                 return View("Result",result);
             }

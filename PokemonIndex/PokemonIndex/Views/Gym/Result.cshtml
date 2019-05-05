@@ -18,60 +18,57 @@
 {
     <h3>@trainer.TrainerName</h3>
 
+    <table class="table">
+        <tr>
+            <th>
+                Id
+            </th>
+            <th>
+                Name
+            </th>
+            <th>
+                Description
+            </th>
+            <th>
+                Level
+            </th>
+            <th>
+                Types
+            </th>
+            <th>
+                Evolution
+            </th>
+        </tr>
 
-
-    foreach (var tp in Model.TrainerPokemons)
-    {
-        if (tp.TrainerId.Equals(trainer.TrainerID))
+        @foreach (var pokemon in trainer.Pokemon)
         {
-            <table class="table">
-                <tr>
-                    <th>
-                        Pokedex Number
-                    </th>
-                    <th>
-                        Name
-                    </th>
-                    <th>
-                        Types
-                    </th>
-                    <th>
-                        Level
-                    </th>
-                </tr>
-
-                @foreach (var pokemon in Model.Pokemons)
-                {
-                    if (pokemon.PokemonId.Equals(tp.PokemonId))
+            <tr>
+                <td>
+                    @pokemon.Id
+                </td>
+                <td>
+                    @pokemon.Name
+                </td>
+                <td>
+                    @pokemon.Description
+                </td>
+                <td>
+                    @pokemon.Level
+                </td>
+                <td>
+                    |
+                    @foreach (var type in pokemon.Types)
                     {
-                        <tr>
-                            <td>
-                                @pokemon.PokemonId
-                            </td>
-                            <td>
-                                @pokemon.Name
-                            </td>
-                            <td>
-                                @foreach (var typeItem in Model.PokemonTypes)
-                                {
-                                    if (pokemon.PokemonId.Equals(typeItem.PokemonId))
-                                    {
-                                        @typeItem.Type
-                                        <br />
-                                    }
+                        @(type + " | ")
 
-                                }
-                            </td>
-                            <td>
-                                @tp.Level
-                            </td>
-                        </tr>
                     }
-                }
-            </table>
+                </td>
+                <td>
+                    @pokemon.Evolution
+                </td>
+            </tr>
         }
 
-
-    }
+    </table>
 }
 
